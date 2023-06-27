@@ -1,4 +1,4 @@
-package main
+package db
 
 import (
 	"fmt"
@@ -14,7 +14,7 @@ type database struct {
 
 var DB database
 
-func initDB() {
+func InitDB() {
 	dbURL := os.Getenv("POSTGRES_DATABASE_URL")
 	if dbURL == "" {
 		host := os.Getenv("POSTGRES_HOST")

@@ -7,6 +7,9 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
+
+	"github.com/mohamedsamara/golang-vue/db"
+	"github.com/mohamedsamara/golang-vue/routes"
 )
 
 func main() {
@@ -15,9 +18,9 @@ func main() {
 		fmt.Println("main: no .env file")
 	}
 
-	initDB()
+	db.InitDB()
 
-	router := InitRouter()
+	router := routes.InitRouter()
 
 	PORT := os.Getenv("PORT")
 	if PORT == "" {
