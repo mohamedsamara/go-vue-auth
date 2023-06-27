@@ -15,7 +15,6 @@ type database struct {
 var DB database
 
 func initDB() {
-
 	dbURL := os.Getenv("POSTGRES_DATABASE_URL")
 	if dbURL == "" {
 		host := os.Getenv("POSTGRES_HOST")

@@ -10,7 +10,6 @@ import (
 )
 
 func main() {
-
 	err := godotenv.Load()
 	if err != nil {
 		fmt.Println("main: no .env file")
@@ -27,5 +26,4 @@ func main() {
 
 	log.Println("Listening on PORT :", PORT)
 	log.Fatal(http.ListenAndServe(":"+PORT, router))
-
 }
