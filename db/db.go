@@ -34,6 +34,7 @@ func InitDB() {
 	if err != nil {
 		panic(err)
 	}
+
 	DB.db = db
 
 	fmt.Println("db connected", dbURL)

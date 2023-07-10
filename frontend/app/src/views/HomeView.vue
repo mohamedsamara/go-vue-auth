@@ -10,5 +10,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <main>{{ pingStore.ping }}</main>
+  <main>
+    <h4>Hello</h4>
+    <span>{{ pingStore.ping }}</span>
+  </main>
 </template>

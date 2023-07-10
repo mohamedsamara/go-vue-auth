@@ -5,7 +5,6 @@
   },
   "go.lintOnSave": "package",
   "go.formatTool": "goimports",
-  "go.docsTool": "gogetdoc",
   "go.useLanguageServer": true,
   "[go]": {
     "editor.defaultFormatter": "golang.go",
