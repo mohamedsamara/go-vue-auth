@@ -18,15 +18,15 @@ func main() {
 		fmt.Println("main: no .env file")
 	}
 
-	db.InitDB()
+	DB := db.InitDB()
 
-	router := routes.InitRouter()
+	router := routes.InitRouter(DB)
 
 	PORT := os.Getenv("PORT")
 	if PORT == "" {
 		PORT = "3000"
 	}
 
-	log.Println("Listening on PORT :", PORT)
+	log.Println("🚀 Listening on PORT :", PORT)
 	log.Fatal(http.ListenAndServe(":"+PORT, router))
 }

@@ -5,7 +5,7 @@ import (
 	"github.com/mohamedsamara/golang-vue/frontend"
 )
 
-func IndexRoutes() *chi.Mux {
+func IndexRoutes() chi.Router {
 	r := chi.NewRouter()
 
 	r.Group(func(r chi.Router) {

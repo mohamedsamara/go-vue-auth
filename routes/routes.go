@@ -1,24 +1,25 @@
 package routes
 
 import (
-	"encoding/json"
-	"net/http"
 	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/mohamedsamara/golang-vue/constants"
+	"github.com/mohamedsamara/golang-vue/handlers"
 	"github.com/rs/cors"
+	"gorm.io/gorm"
 )
 
-func InitRouter() *chi.Mux {
+func InitRouter(db *gorm.DB) *chi.Mux {
 	r := initChi()
 
-	r.Mount("/", IndexRoutes())
+	r.Use(middleware.Logger, middleware.WithValue(constants.DB_CONTEXT, db))
 
-	r.Get("/ping", func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode("pong")
-	})
+	h := handlers.New(db)
+
+	r.Mount("/", IndexRoutes())
+	r.Mount(constants.API_URL, APIRoutes(&h))
 
 	return r
 }
@@ -31,7 +32,7 @@ func initChi() *chi.Mux {
 	cors := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token", "X-User", "authorization"},
+		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token", "X-User", "authorization", "x-jwt"},
 		AllowCredentials: true,
 		MaxAge:           300,
 	})
