@@ -2,12 +2,14 @@
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/yup'
 import * as Yup from 'yup'
+import { useRouter } from 'vue-router'
 
 import { useAuth } from '@/stores'
 import type { LoginPayload } from '@/lib/types'
 import { Button, Heading, Input, ErrorFeedback, Spinner } from '@/components/Shared'
 import { LogoLink } from '@/components'
 
+const router = useRouter()
 const authStore = useAuth()
 
 const { handleSubmit, isSubmitting, errors, defineInputBinds } = useForm<LoginPayload>({
@@ -22,7 +24,10 @@ const { handleSubmit, isSubmitting, errors, defineInputBinds } = useForm<LoginPa
 
 const onSubmit = handleSubmit((values, actions) => {
   authStore.signup(values).then((done) => {
-    if (done) actions.resetForm()
+    if (done) {
+      actions.resetForm()
+      router.push('account')
+    }
   })
 })
 
@@ -33,13 +38,11 @@ const password = defineInputBinds('password')
 <template>
   <main class="h-full">
     <section class="relative grid h-full grid-cols-12 lg:overflow-hidden gap-x-6">
-      <div class="col-span-12 lg:col-span-6 bg-white-lilacapprox">
+      <div class="col-span-12 lg:col-span-6 bg-link-water">
         <div class="flex flex-col items-center justify-center h-full">
           <div class="px-8 py-8 space-y-2 text-center">
-            <Heading as="h4">Try Stealth free for 15 Days</Heading>
-            <p class="text-gray-400">
-              Get a chance to xplore the product to its fullest before choosing your ideal plan
-            </p>
+            <Heading as="h4">Try STEALTH free</Heading>
+            <p class="text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
           </div>
           <div data-aos="fade-right" data-aos-delay="150" class="hidden px-4 py-8 lg:block sm:px-8">
             <div class="w-full">

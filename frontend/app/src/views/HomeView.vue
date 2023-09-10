@@ -1,47 +1,42 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
-
-import { usePing } from '@/stores/ping'
-import { Header, Footer } from '@/components'
+import { DefaultLayout } from '@/components'
 import { Button, Heading } from '@/components/Shared'
-
-const pingStore = usePing()
-
-onMounted(() => {
-  pingStore.fetchPing()
-})
 </script>
 <template>
-  <Header />
-  <div class="absolute z-[-1] top-0 left-0 w-full h-[160vh] bg-white-lilacapprox" />
-  <main class="h-full">
-    <span>{{ pingStore.ping }}</span>
-    <section class="relative py-24 overflow-hidden">
-      <div class="flex flex-col justify-center max-w-screen-xl px-4 mx-auto sm:px-8">
-        <div class="flex flex-col items-center justify-between w-full lg:flex-row">
-          <div class="order-2 lg:w-1/2 lg:order-1">
-            <div>
-              <Heading as="h2" class="mb-3 leading-tight capitalize">
-                Auth system platform
-                <span class="mx-1">For</span> webstie
-              </Heading>
+  <DefaultLayout>
+    <main class="flex-1 flex justify-center items-center">
+      <section class="relative overflow-hidden">
+        <div
+          class="flex flex-col py-24 lg:py-0 justify-center max-w-screen-xl px-4 mx-auto sm:px-8"
+        >
+          <div class="flex flex-col items-center justify-between w-full lg:flex-row">
+            <div class="order-2 lg:w-1/2 lg:order-1">
+              <div>
+                <Heading as="h2" class="mb-3 leading-tight capitalize">
+                  Auth <span class="mx-1">system</span> platform for websites
+                </Heading>
+              </div>
+              <p class="mb-4 paragraph">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua.
+              </p>
+              <div>
+                <Button
+                  variant="secondary"
+                  class="max-w-full rounded-3xl"
+                  @click="$router.push('login')"
+                  >Get Started</Button
+                >
+              </div>
             </div>
-            <p class="mb-4 paragraph">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua.
-            </p>
-            <div>
-              <Button variant="secondary" class="max-w-full rounded-3xl">Get Started</Button>
-            </div>
-          </div>
-          <div class="order-1 lg:w-1/2 lg:order-2">
-            <div id="hero-image">
-              <img src="@/assets/hero.svg" alt="Hero" class="mx-auto h-[400px]" />
+            <div class="order-1 lg:w-1/2 lg:order-2">
+              <div id="hero-image">
+                <img src="@/assets/hero.svg" alt="Hero" class="mx-auto h-[400px]" />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  </main>
-  <Footer />
+      </section>
+    </main>
+  </DefaultLayout>
 </template>

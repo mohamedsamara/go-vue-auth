@@ -1,6 +1,7 @@
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { useToast } from 'vue-toastification'
+import { useRouter } from 'vue-router'
 
 import { API } from '@/lib/apis'
 import { SERVICE } from '@/lib/services'
@@ -11,25 +12,19 @@ const toast = useToast()
 
 export const useAuth = defineStore('auth', () => {
   const auth = ref<Auth | null>(null)
-
   const authenticated = computed(() => auth.value)
+  const router = useRouter()
 
-  onMounted(async () => {
-    await setAuth()
-  })
-
-  async function setAuth() {
+  async function bootstrap() {
     const jwt = await SERVICE.AUTH_CLIENT.verifyJWT()
     if (jwt) {
       auth.value = jwt
-    } else {
-      logout()
     }
   }
 
   async function logout() {
-    console.log('LOGGGING OUT FROM STORE')
     await SERVICE.AUTH_CLIENT.removeTokens()
+    router.push('login')
     auth.value = null
   }
 
@@ -57,5 +52,5 @@ export const useAuth = defineStore('auth', () => {
     }
   }
 
-  return { authenticated, logout, login, signup }
+  return { bootstrap, authenticated, logout, login, signup }
 })

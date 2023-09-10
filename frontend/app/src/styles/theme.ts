@@ -1,11 +1,5 @@
 /* Button Component */
-export type ButtonVariants =
-  | 'transparent'
-  | 'primary'
-  | 'secondary'
-  | 'basic'
-  | 'danger'
-  | 'gradient-primary'
+export type ButtonVariants = 'transparent' | 'primary' | 'secondary' | 'basic' | 'danger'
 export type ButtonSizes = 'sm' | 'md' | 'lg'
 
 export const ButtonVariant = {

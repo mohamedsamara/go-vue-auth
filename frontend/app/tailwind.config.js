@@ -10,7 +10,7 @@ export default {
       colors: {
         primary: '#4863f4',
         secondary: '#000000',
-        'white-lilacapprox': '#f2f2fA'
+        'link-water': '#eceefb'
       }
     }
   },

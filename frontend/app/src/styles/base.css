@@ -14,10 +14,15 @@
 
 @layer base {
   html,
-  body,
-  #app {
+  body {
     height: 100%;
     font-family: 'Poppins';
+  }
+
+  #app {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   h1,

@@ -2,12 +2,14 @@
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/yup'
 import * as Yup from 'yup'
+import { useRouter } from 'vue-router'
 
 import { useAuth } from '@/stores'
 import type { LoginPayload } from '@/lib/types'
 import { Heading, Input, Button, ErrorFeedback, Spinner } from '@/components/Shared'
 import { LogoLink } from '@/components'
 
+const router = useRouter()
 const authStore = useAuth()
 
 const { handleSubmit, isSubmitting, errors, defineInputBinds } = useForm<LoginPayload>({
@@ -21,7 +23,10 @@ const { handleSubmit, isSubmitting, errors, defineInputBinds } = useForm<LoginPa
 
 const onSubmit = handleSubmit((values, actions) => {
   authStore.login(values).then((done) => {
-    if (done) actions.resetForm()
+    if (done) {
+      actions.resetForm()
+      router.push('account')
+    }
   })
 })
 
@@ -29,7 +34,7 @@ const email = defineInputBinds('email')
 const password = defineInputBinds('password')
 </script>
 <template>
-  <main class="h-full bg-white-lilacapprox">
+  <main class="h-full bg-link-water">
     <section
       class="relative flex flex-col justify-center h-full max-w-screen-md px-4 mx-auto overflow-hidden sm:px-8"
     >
