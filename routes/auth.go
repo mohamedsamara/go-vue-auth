@@ -11,6 +11,7 @@ func AuthRoutes(h *handlers.BaseHandler) chi.Router {
 	r.Group(func(r chi.Router) {
 		r.Post("/register", h.Register)
 		r.Post("/login", h.Login)
+		r.Post("/refresh", h.RefreshToken)
 	})
 
 	return r

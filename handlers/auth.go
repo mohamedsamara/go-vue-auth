@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/mohamedsamara/golang-vue/auth"
 	"github.com/mohamedsamara/golang-vue/constants"
 	"github.com/mohamedsamara/golang-vue/models"
@@ -49,14 +50,19 @@ func (h *BaseHandler) Register(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	token, tokenError := auth.CreateAccessToken(15, newUser.ID)
-
+	accessToken, tokenError := auth.CreateAccessToken(constants.ACCESS_TOKEN_EXPIRE, newUser.ID)
 	if tokenError != nil {
 		utils.WriteFailureResponse(w, "Generating JWT token failed.")
 		return
 	}
 
-	response := formatUserTokenResponse(newUser, token)
+	refreshToken, refreshTokenError := auth.CreateAccessToken(constants.REFRESH_TOKEN_EXPIRE, newUser.ID)
+	if refreshTokenError != nil {
+		utils.WriteFailureResponse(w, "Generating JWT token failed.")
+		return
+	}
+
+	response := formatAuthResponse(accessToken, refreshToken)
 
 	utils.WriteSuccessResponse(w, "User registered.", response)
 }
@@ -91,23 +97,87 @@ func (h *BaseHandler) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	token, tokenError := auth.CreateAccessToken(1, user.ID)
-
+	accessToken, tokenError := auth.CreateAccessToken(constants.ACCESS_TOKEN_EXPIRE, user.ID)
 	if tokenError != nil {
 		utils.WriteFailureResponse(w, "Generating JWT token failed.")
 		return
 	}
 
-	response := formatUserTokenResponse(user, token)
+	refreshToken, refreshTokenError := auth.CreateAccessToken(constants.REFRESH_TOKEN_EXPIRE, user.ID)
+	if refreshTokenError != nil {
+		utils.WriteFailureResponse(w, "Generating JWT token failed.")
+		return
+	}
+
+	response := formatAuthResponse(accessToken, refreshToken)
 
 	utils.WriteSuccessResponse(w, "User logged in.", response)
 }
 
-func formatUserTokenResponse(user models.User, token string) map[string]interface{} {
+func (h *BaseHandler) RefreshToken(w http.ResponseWriter, r *http.Request) {
+	var payload models.RefreshTokenRequest
+	err := json.NewDecoder(r.Body).Decode(&payload)
+	if err != nil {
+		utils.WritePermissionDenied(w)
+		return
+	}
+
+	if payload.RefreshToken == "" {
+		utils.WritePermissionDenied(w)
+		return
+	}
+
+	refreshToken := payload.RefreshToken
+
+	token, err := auth.VerifyJWT(refreshToken)
+
+	if err != nil {
+		utils.WritePermissionDenied(w)
+		return
+	}
+
+	if !token.Valid {
+		utils.WritePermissionDenied(w)
+		return
+	}
+
+	claims, ok := token.Claims.(jwt.MapClaims)
+	userId := claims["id"]
+
+	if !ok {
+		utils.WritePermissionDenied(w)
+		return
+	}
+
+	var user models.User
+
+	h.db.First(&user, "id = ?", userId)
+
+	if user.ID.String() != userId {
+		utils.WritePermissionDenied(w)
+		return
+	}
+
+	accessToken, tokenError := auth.CreateAccessToken(constants.ACCESS_TOKEN_EXPIRE, user.ID)
+	if tokenError != nil {
+		utils.WriteFailureResponse(w, "Generating JWT token failed.")
+		return
+	}
+
+	refreshToken, refreshTokenError := auth.CreateAccessToken(constants.REFRESH_TOKEN_EXPIRE, user.ID)
+	if refreshTokenError != nil {
+		utils.WriteFailureResponse(w, "Generating JWT token failed.")
+		return
+	}
+
+	response := formatAuthResponse(accessToken, refreshToken)
+
+	utils.WriteSuccessResponse(w, "User logged in.", response)
+}
+
+func formatAuthResponse(accessToken string, refreshToken string) map[string]interface{} {
 	response := make(map[string]interface{})
-
-	response["user"] = utils.FormatUserResponse(user)
-	response["token"] = token
-
+	response["accessToken"] = accessToken
+	response["refreshToken"] = refreshToken
 	return response
 }

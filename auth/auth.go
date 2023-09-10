@@ -15,7 +15,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func verifyJWT(tokenString string) (*jwt.Token, error) {
+func VerifyJWT(tokenString string) (*jwt.Token, error) {
 	secret := os.Getenv("JWT_SECRET")
 
 	return jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
@@ -43,7 +43,7 @@ func WithJWT(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		tokenString := r.Header.Get("x-jwt")
 
-		token, err := verifyJWT(tokenString)
+		token, err := VerifyJWT(tokenString)
 
 		if err != nil {
 			utils.WritePermissionDenied(w)

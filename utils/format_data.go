@@ -8,7 +8,7 @@ func FormatUserResponse(u models.User) map[string]interface{} {
 	user["id"] = u.ID
 	user["name"] = u.Name
 	user["email"] = u.Email
-	user["created"] = u.CreatedAt
+	user["createdAt"] = u.CreatedAt
 	user["updatedAt"] = u.UpdatedAt
 
 	return user

@@ -22,5 +22,4 @@ func APIRoutes(h *handlers.BaseHandler) chi.Router {
 	r.Mount("/user", UserRoutes(h))
 
 	return r
-
 }

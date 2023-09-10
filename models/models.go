@@ -26,5 +26,9 @@ type LoginRequest struct {
 	Password string `json:"password"  validate:"required"`
 }
 
+type RefreshTokenRequest struct {
+	RefreshToken string `json:"refreshToken"`
+}
+
 type UserResponse struct {
 }
