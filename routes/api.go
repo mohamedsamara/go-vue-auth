@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/mohamedsamara/golang-vue/handlers"
+	"github.com/mohamedsamara/go-vue/handlers"
 )
 
 func APIRoutes(h *handlers.BaseHandler) chi.Router {

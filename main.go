@@ -8,8 +8,8 @@ import (
 
 	"github.com/joho/godotenv"
 
-	"github.com/mohamedsamara/golang-vue/db"
-	"github.com/mohamedsamara/golang-vue/routes"
+	"github.com/mohamedsamara/go-vue/db"
+	"github.com/mohamedsamara/go-vue/routes"
 )
 
 func main() {

@@ -1,6 +1,6 @@
 package utils
 
-import "github.com/mohamedsamara/golang-vue/models"
+import "github.com/mohamedsamara/go-vue/models"
 
 func FormatUserResponse(u models.User) map[string]interface{} {
 	user := make(map[string]interface{})

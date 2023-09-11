@@ -2,8 +2,8 @@ package routes
 
 import (
 	"github.com/go-chi/chi/v5"
-	"github.com/mohamedsamara/golang-vue/auth"
-	"github.com/mohamedsamara/golang-vue/handlers"
+	"github.com/mohamedsamara/go-vue/auth"
+	"github.com/mohamedsamara/go-vue/handlers"
 )
 
 func UserRoutes(h *handlers.BaseHandler) chi.Router {

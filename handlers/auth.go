@@ -6,10 +6,10 @@ import (
 	"strings"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/mohamedsamara/golang-vue/auth"
-	"github.com/mohamedsamara/golang-vue/constants"
-	"github.com/mohamedsamara/golang-vue/models"
-	"github.com/mohamedsamara/golang-vue/utils"
+	"github.com/mohamedsamara/go-vue/auth"
+	"github.com/mohamedsamara/go-vue/constants"
+	"github.com/mohamedsamara/go-vue/models"
+	"github.com/mohamedsamara/go-vue/utils"
 )
 
 func (h *BaseHandler) Register(w http.ResponseWriter, r *http.Request) {

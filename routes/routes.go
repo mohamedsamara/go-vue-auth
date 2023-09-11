@@ -5,8 +5,8 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/mohamedsamara/golang-vue/constants"
-	"github.com/mohamedsamara/golang-vue/handlers"
+	"github.com/mohamedsamara/go-vue/constants"
+	"github.com/mohamedsamara/go-vue/handlers"
 	"github.com/rs/cors"
 	"gorm.io/gorm"
 )
