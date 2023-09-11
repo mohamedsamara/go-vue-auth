@@ -8,8 +8,8 @@ export const usePing = defineStore('ping', () => {
 
   async function fetchPing() {
     try {
-      // ping.value = await API.PING_CLIENT.ping()
-      // return ping
+      ping.value = await API.PING_CLIENT.ping()
+      return ping
     } catch (error) {
       return error
     }

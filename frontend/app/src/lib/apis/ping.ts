@@ -7,7 +7,7 @@ export class PingClient {
   public async ping(): Promise<string> {
     const path = `${this.ROOT_PATH}`
 
-    const response = await this.httpClient.get(path)
+    const response = await this.httpClient.get({ path })
     const result = await response.json()
     if (response.ok) {
       return result
