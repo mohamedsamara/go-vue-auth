@@ -11,15 +11,13 @@ import (
 )
 
 func InitDB() *gorm.DB {
-	dbURL := os.Getenv("POSTGRES_DATABASE_URL")
-	if dbURL == "" {
-		host := os.Getenv("POSTGRES_HOST")
-		dbPort := os.Getenv("POSTGRES_PORT")
-		dbName := os.Getenv("POSTGRES_DB")
-		dbUsername := os.Getenv("POSTGRES_USER")
-		dbPassword := os.Getenv("POSTGRES_PASSWORD")
-		dbURL = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable", host, dbUsername, dbPassword, dbName, dbPort)
-	}
+
+	host := os.Getenv("POSTGRES_HOST")
+	dbPort := os.Getenv("POSTGRES_PORT")
+	dbName := os.Getenv("POSTGRES_DB")
+	dbUsername := os.Getenv("POSTGRES_USER")
+	dbPassword := os.Getenv("POSTGRES_PASSWORD")
+	dbURL := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable", host, dbUsername, dbPassword, dbName, dbPort)
 
 	var err error
 
