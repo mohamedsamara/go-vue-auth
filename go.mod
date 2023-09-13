@@ -1,4 +1,4 @@
-module github.com/mohamedsamara/go-vue
+module github.com/mohamedsamara/go-vue-auth
 
 go 1.19
 

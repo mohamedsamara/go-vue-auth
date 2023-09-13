@@ -12,6 +12,5 @@
     "editor.codeActionsOnSave": {
       "source.organizeImports": true
     }
-  },
-  "typescript.tsdk": "node_modules/typescript/lib"
+  }
 }

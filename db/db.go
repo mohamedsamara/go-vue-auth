@@ -5,7 +5,7 @@ import (
 	"os"
 
 	_ "github.com/lib/pq"
-	"github.com/mohamedsamara/go-vue/models"
+	"github.com/mohamedsamara/go-vue-auth/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )

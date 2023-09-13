@@ -3,8 +3,8 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/mohamedsamara/go-vue/constants"
-	"github.com/mohamedsamara/go-vue/utils"
+	"github.com/mohamedsamara/go-vue-auth/constants"
+	"github.com/mohamedsamara/go-vue-auth/utils"
 )
 
 func (h *BaseHandler) GetUser(w http.ResponseWriter, r *http.Request) {

@@ -1,5 +1,5 @@
 FRONTEND_DIR=frontend
-BUILD_DIR=build
+BUILD_DIR=dist
 
 clean:
 	cd $(FRONTEND_DIR); \
@@ -7,14 +7,14 @@ clean:
 
 static: clean
 	cd $(FRONTEND_DIR); \
-	pnpm i; \
-	pnpm build
+	yarn install; \
+	yarn build
 
 build: 
 	docker compose build
 
 run:
-	docker compose up
+	docker compose up -d db && docker compose up
 
 stop:
 	docker compose down

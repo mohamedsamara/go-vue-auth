@@ -2,7 +2,7 @@ package routes
 
 import (
 	"github.com/go-chi/chi/v5"
-	"github.com/mohamedsamara/go-vue/frontend"
+	"github.com/mohamedsamara/go-vue-auth/frontend"
 )
 
 func IndexRoutes() chi.Router {

@@ -30,9 +30,9 @@ FROM alpine:latest
 
 RUN apk add --no-cache ca-certificates openssl
 
-COPY --from=binary-builder /app/go-vue /app/
+COPY --from=binary-builder /app/go-vue-auth /app/
 
 RUN ls app
 
 EXPOSE 3000
-ENTRYPOINT ["/app/go-vue"]
+ENTRYPOINT ["/app/go-vue-auth"]

@@ -10,7 +10,7 @@
 
 # production
 /build
-go-vue
+go-vue-auth
 
 # misc
 .DS_Store

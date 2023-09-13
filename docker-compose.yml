@@ -1,9 +1,9 @@
 version: "3.8"
 
 services:
-  go-vue:
-    container_name: go-vue
-    image: mohamedsamara/go-vue:latest
+  go-vue-auth:
+    container_name: go-vue-auth
+    image: mohamedsamara/go-vue-auth:latest
     build: .
     env_file:
       - .env
