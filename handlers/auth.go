@@ -164,12 +164,6 @@ func (h *BaseHandler) RefreshToken(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	refreshToken, refreshTokenError := auth.CreateAccessToken(constants.REFRESH_TOKEN_EXPIRE, user.ID)
-	if refreshTokenError != nil {
-		utils.WriteFailureResponse(w, "Generating JWT token failed.")
-		return
-	}
-
 	response := formatAuthResponse(accessToken, refreshToken)
 
 	utils.WriteSuccessResponse(w, "User logged in.", response)

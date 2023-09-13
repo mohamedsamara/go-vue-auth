@@ -15,7 +15,7 @@ export interface LoginPayload {
 export interface User {
   id: string
   name: string
-  emil: string
+  email: string
   createdAt: number
   updatedAt: number
 }

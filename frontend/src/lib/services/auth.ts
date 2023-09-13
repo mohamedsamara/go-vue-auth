@@ -25,7 +25,6 @@ export class AuthClient {
       // TODO: check expiry on the server
       if (decodedJwt.exp * 1000 < Date.now()) {
         const result = await API.AUTH_CLIENT.getRefreshToken()
-        //TODO logout
         if (!result.success) return null
         return result.data
       }

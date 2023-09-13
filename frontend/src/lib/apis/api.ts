@@ -1,5 +1,5 @@
-import { API_BASE_URL } from '../constants'
-import { SERVICE } from '../services'
+import { API_BASE_URL } from '@/lib/constants'
+import { SERVICE } from '@/lib/services'
 
 interface Payload {
   method?: string
@@ -25,7 +25,6 @@ export class HttpClient {
       const jwt = await SERVICE.AUTH_CLIENT.verifyJWT()
 
       if (!jwt) {
-        console.log('LOGGGING OUT FROM API - INTERCEPTING')
         throw new Error('Unauthorized')
       }
 

@@ -45,13 +45,14 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuth()
+  const authenticated = await authStore.canAccess()
 
   const privateAuth = to.matched.some((x) => x.meta.private)
   const protectedAuth = to.matched.some((x) => x.meta.protected)
 
-  if (privateAuth && !authStore.authenticated) {
+  if (privateAuth && !authenticated) {
     next('/login')
-  } else if (protectedAuth && authStore.authenticated) {
+  } else if (protectedAuth && authenticated) {
     next('/account')
   } else {
     next()

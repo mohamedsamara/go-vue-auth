@@ -1,24 +1,38 @@
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { useToast } from 'vue-toastification'
 import { useRouter } from 'vue-router'
 
+import type { LoginPayload, SignupPayload, Auth } from '@/lib/types'
 import { API } from '@/lib/apis'
 import { SERVICE } from '@/lib/services'
+import { useUser } from '@/stores'
 import { handleError } from '@/lib/utils'
-import type { LoginPayload, SignupPayload, Auth } from '@/lib/types'
 
 const toast = useToast()
 
 export const useAuth = defineStore('auth', () => {
   const auth = ref<Auth | null>(null)
-  const authenticated = computed(() => auth.value)
+  const authenticated = computed(() => (auth.value ? true : false))
   const router = useRouter()
 
-  async function bootstrap() {
+  const userStore = useUser()
+
+  watch(auth, () => {
+    if (authenticated.value && !userStore.user) {
+      userStore.fetchUser()
+    }
+  })
+
+  async function canAccess() {
     const jwt = await SERVICE.AUTH_CLIENT.verifyJWT()
     if (jwt) {
       auth.value = jwt
+      return true
+    } else {
+      await SERVICE.AUTH_CLIENT.removeTokens()
+      auth.value = null
+      return false
     }
   }
 
@@ -52,5 +66,5 @@ export const useAuth = defineStore('auth', () => {
     }
   }
 
-  return { bootstrap, authenticated, logout, login, signup }
+  return { canAccess, authenticated, logout, login, signup }
 })
