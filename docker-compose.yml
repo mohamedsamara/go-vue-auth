@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  go-vue:
+    container_name: go-vue
+    image: mohamedsamara/go-vue:latest
+    build: .
+    env_file:
+      - .env
+    environment:
+      POSTGRES_HOST: go-db
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+  db:
+    image: postgres:alpine
+    container_name: go-db
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+
+volumes:
+  postgres-db:
