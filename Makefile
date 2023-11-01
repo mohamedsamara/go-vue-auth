@@ -14,7 +14,7 @@ build:
 	docker compose build
 
 run:
-	docker compose up -d db && docker compose up
+	docker compose up -d postgres && docker compose up
 
 stop:
 	docker compose down

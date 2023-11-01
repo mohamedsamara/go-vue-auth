@@ -2,7 +2,7 @@
 import { Button, Heading } from '@/components/Shared'
 </script>
 <template>
-  <main class="flex-1 flex justify-center items-center">
+  <main class="flex items-center justify-center flex-1">
     <section>
       <div
         class="container flex flex-col items-center justify-center h-screen px-6 mx-auto md:px-24 xl:px-64"
@@ -19,7 +19,7 @@ import { Button, Heading } from '@/components/Shared'
           looking for.
         </p>
 
-        <Button variant="secondary" class="max-w-full rounded-3xl" @click="$router.push('login')"
+        <Button variant="secondary" class="max-w-full rounded-3xl" @click="$router.push('/')"
           >Go Home</Button
         >
       </div>

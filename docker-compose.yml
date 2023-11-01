@@ -1,21 +1,21 @@
 version: "3.8"
 
 services:
-  go-vue-auth:
-    container_name: go-vue-auth
+  web:
+    container_name: web
     image: mohamedsamara/go-vue-auth:latest
     build: .
     env_file:
       - .env
     environment:
-      POSTGRES_HOST: go-db
+      POSTGRES_HOST: postgres-db
     ports:
       - "3000:3000"
     depends_on:
-      - db
-  db:
+      - postgres
+  postgres:
     image: postgres:alpine
-    container_name: go-db
+    container_name: postgres-db
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
